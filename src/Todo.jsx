@@ -21,6 +21,16 @@ export default function Todo() {
     setIncompleteTodos(newTodos);
   };
 
+  const onClickComplete = (index) => {
+    const newIncompleteTodos = [...incompleteTodos];
+    newIncompleteTodos.splice(index, 1);
+    
+    const newCompleteTodos = [...completeTodos, incompleteTodos[index]];
+    setIncompleteTodos(newIncompleteTodos);
+    setCompleteTodos(newCompleteTodos); 
+
+  }
+
   return (
     <>
       <div className="input-area">
@@ -34,7 +44,7 @@ export default function Todo() {
             <li key={todo}>
               <div className="list-row">
                 <p className="todo-item">{todo}</p>
-                <button>完了</button>
+                <button onClick={() => onClickComplete(index)}>完了</button>
                 <button onClick={ () => onClickDelete(index)}>削除</button>
               </div>
             </li>
@@ -44,18 +54,14 @@ export default function Todo() {
       <div className="complete-area">
         <p className="title">完了のTODO</p>
         <ul>
-          <li>
-            <div className="list-row">
-            <p className="todo-item">TODOでした</p>
-            <button>戻す</button>
-            </div>
-          </li>
-          <li>
-            <div className="list-row">
-              <p className="todo-item">TODOでした</p>
-              <button>戻す</button>
-            </div>
-          </li>
+          {completeTodos.map((todo, index) => (
+            <li key={todo}>
+              <div className="list-row">
+                <p className="todo-item">{todo}</p>
+                <button>戻す</button>
+              </div>
+            </li>
+          ))}
         </ul>
       </div>
     </>
