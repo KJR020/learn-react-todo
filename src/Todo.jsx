@@ -31,6 +31,16 @@ export default function Todo() {
 
   }
 
+  const onClickBack = (index) => {
+    const newCompleteTodos = [...completeTodos];
+    newCompleteTodos.splice(index, 1);
+
+    const newIncompleteTodos = [...incompleteTodos, completeTodos[index]];
+
+    setCompleteTodos(newCompleteTodos);
+    setIncompleteTodos(newIncompleteTodos);
+  }
+
   return (
     <>
       <div className="input-area">
@@ -45,7 +55,7 @@ export default function Todo() {
               <div className="list-row">
                 <p className="todo-item">{todo}</p>
                 <button onClick={() => onClickComplete(index)}>完了</button>
-                <button onClick={ () => onClickDelete(index)}>削除</button>
+                <button onClick={() => onClickDelete(index)}>削除</button>
               </div>
             </li>
           ))}
@@ -58,7 +68,7 @@ export default function Todo() {
             <li key={todo}>
               <div className="list-row">
                 <p className="todo-item">{todo}</p>
-                <button>戻す</button>
+                <button onClick={() => onClickBack(index)}>戻す</button>
               </div>
             </li>
           ))}
