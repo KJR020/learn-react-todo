@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { InputTodo } from "./components/InputTodo";
 import { IncompleteTodos } from "./components/IncompleteTodos";
+import { CompleteTodos } from "./components/CompleteTodos";
 import "./styles.css";
 
 export default function Todo() {
@@ -55,19 +56,10 @@ export default function Todo() {
         onClickComplete={onClickComplete}
         onClickDelete={onClickDelete} 
       />
-      <div className="complete-area">
-        <p className="title">完了のTODO</p>
-        <ul>
-          {completeTodos.map((todo, index) => (
-            <li key={todo}>
-              <div className="list-row">
-                <p className="todo-item">{todo}</p>
-                <button onClick={() => onClickBack(index)}>戻す</button>
-              </div>
-            </li>
-          ))}
-        </ul>
-      </div>
+      <CompleteTodos
+        completeTodos={completeTodos}
+        onClickBack={onClickBack}
+      />
     </>
   );
 }
